@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight, ShieldCheck, Clock, AlertTriangle, CheckCircle,
   FileText, Heart, Home, BarChart2, Settings, LogOut,
   ChevronRight, Briefcase, GraduationCap, Users, Zap, Star,
+  TrendingUp, Globe, ExternalLink,
 } from "lucide-react";
 
 /* ── Brand tokens ─────────────────────────────────────────────── */
@@ -491,16 +492,178 @@ function Sidebar({ visa, step }: { visa: VisaType | null; step: number }) {
   );
 }
 
+/* ── Info Panel (right column, shown when container ≥ 720 px) ── */
+function InfoPanel({
+  step, visa, benefits,
+}: { step: number; visa: VisaType | null; benefits: BenefitsStart | null }) {
+  const selVisa = visaOpts.find(v => v.id === visa);
+  const selBen  = benefitsOpts.find(b => b.id === benefits);
+  const rc      = selBen ? riskCfg[selBen.risk] : null;
+
+  const visaTips: Record<VisaType, { title: string; body: string }> = {
+    work:         { title: "Work Visa Coverage", body: "Employer plans typically start 30–90 days after your first day. Most H-1B and L-1 holders face at least a 30-day gap." },
+    student:      { title: "Student Visa Coverage", body: "J-1 students must meet minimum insurance requirements ($100K medical, $25K repatriation). University plans start with semester enrollment." },
+    entrepreneur: { title: "Entrepreneur Coverage", body: "No employer plan. The ACA Marketplace opens a 60-day Special Enrollment Period after your arrival. Budget $350–$900/month." },
+    family:       { title: "Dependent Coverage", body: "Your arrival in the US is a Qualifying Life Event. You must be added to the primary holder's plan within 30 days. Children may qualify for CHIP." },
+  };
+
+  const scenarios = [
+    { icon: "🏥", event: "ER visit",        cost: "$2,200–$5,000" },
+    { icon: "🦴", event: "Fracture/injury", cost: "$5,000–$15,000" },
+    { icon: "🏨", event: "Hospitalization", cost: "$10,000–$50,000" },
+  ];
+
+  return (
+    <div style={{ flex: 1, overflowY: "auto", background: C.surface, borderLeft: `1.5px solid ${C.navy10}`, padding: "24px 22px 32px", display: "flex", flexDirection: "column", gap: 14 }}>
+
+      {/* Section label */}
+      <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+        <div style={{ width: 28, height: 28, borderRadius: 8, background: C.coral15, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <ShieldCheck size={14} color={C.coral} strokeWidth={2.5} />
+        </div>
+        <span style={{ fontSize: 11, fontWeight: 800, color: C.coral, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+          {step < 3 ? "Why this matters" : "What happens next"}
+        </span>
+      </div>
+
+      {/* Gap visual */}
+      <div style={{ background: "#fff", border: `1.5px solid ${C.navy10}`, borderRadius: 14, padding: "16px 18px" }}>
+        <p style={{ fontSize: 12.5, fontWeight: 800, color: C.navy, marginBottom: 14 }}>The Coverage Gap</p>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+          <div style={{ width: 34, height: 34, borderRadius: "50%", background: C.navy05, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>✈️</div>
+          <div style={{ flex: 1, display: "flex", height: 8, borderRadius: 4, overflow: "hidden" }}>
+            <div style={{ width: "15%", background: C.green }} />
+            <div style={{ flex: 1, background: selBen && selBen.gapDays > 0 ? (rc?.border ?? "#fca5a5") : C.green }} />
+            <div style={{ width: "25%", background: C.green }} />
+          </div>
+          <div style={{ width: 34, height: 34, borderRadius: "50%", background: C.greenBg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0 }}>✓</div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span style={{ fontSize: 10.5, color: C.navy50, fontWeight: 600 }}>Arrival (Day 0)</span>
+          {selBen && selBen.gapDays > 0
+            ? <span style={{ fontSize: 10.5, fontWeight: 800, color: rc?.text }}>{selBen.gapDays}-day gap</span>
+            : <span style={{ fontSize: 10.5, fontWeight: 700, color: C.greenDark }}>No gap!</span>
+          }
+          <span style={{ fontSize: 10.5, color: C.navy50, fontWeight: 600 }}>Covered</span>
+        </div>
+      </div>
+
+      {/* Cost scenarios */}
+      <div style={{ background: "#fff", border: `1.5px solid ${C.navy10}`, borderRadius: 14, padding: "16px 18px" }}>
+        <p style={{ fontSize: 12.5, fontWeight: 800, color: C.navy, marginBottom: 4 }}>If something goes wrong…</p>
+        <p style={{ fontSize: 11.5, color: C.navy50, marginBottom: 12 }}>Without coverage, you pay 100% out-of-pocket.</p>
+        {scenarios.map(({ icon, event, cost }) => (
+          <div key={event} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderBottom: `1px solid ${C.navy10}` }}>
+            <span style={{ fontSize: 16 }}>{icon}</span>
+            <span style={{ flex: 1, fontSize: 12.5, color: C.navy, fontWeight: 500 }}>{event}</span>
+            <span style={{ fontSize: 12.5, fontWeight: 800, color: "#b91c1c" }}>{cost}</span>
+          </div>
+        ))}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 8 }}>
+          <span style={{ fontSize: 16 }}>🏥</span>
+          <span style={{ flex: 1, fontSize: 12.5, color: C.navy, fontWeight: 500 }}>Major surgery</span>
+          <span style={{ fontSize: 12.5, fontWeight: 800, color: "#b91c1c" }}>$50,000+</span>
+        </div>
+      </div>
+
+      {/* Visa-specific tip (step 1+) */}
+      {visa && selVisa && step <= 2 && (
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+          style={{ background: "#fff", border: `1.5px solid ${C.coral15}`, borderRadius: 14, padding: "16px 18px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 10 }}>
+            <selVisa.Icon size={14} color={C.coral} strokeWidth={2} />
+            <p style={{ fontSize: 12.5, fontWeight: 800, color: C.navy }}>{visaTips[visa].title}</p>
+          </div>
+          <p style={{ fontSize: 12.5, color: C.navy70, lineHeight: 1.65 }}>{visaTips[visa].body}</p>
+        </motion.div>
+      )}
+
+      {/* Exposure estimate (step 2) */}
+      {step === 2 && selBen && selBen.gapDays > 0 && (
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+          style={{ background: rc?.bg, border: `1.5px solid ${rc?.border}`, borderRadius: 14, padding: "16px 18px" }}>
+          <p style={{ fontSize: 12, fontWeight: 800, color: C.navy, marginBottom: 8 }}>Your Exposure Window</p>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
+            <div>
+              <p style={{ fontSize: 11, color: C.navy50, marginBottom: 2 }}>Gap duration</p>
+              <p style={{ fontSize: 22, fontWeight: 900, color: rc?.text }}>{selBen.gapDays} days</p>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <p style={{ fontSize: 11, color: C.navy50, marginBottom: 2 }}>Risk level</p>
+              <p style={{ fontSize: 14, fontWeight: 800, color: rc?.text }}>{rc?.label}</p>
+            </div>
+          </div>
+          <p style={{ fontSize: 12, color: C.navy70, lineHeight: 1.6 }}>
+            {selBen.risk === "low" ? "A 30-day gap is manageable with a short-term plan. Act before departure." :
+             selBen.risk === "moderate" ? "A 30-day gap creates real exposure. One ER visit can cost $2,200+ out-of-pocket." :
+             "A 60–90 day gap is a serious financial risk. Get bridge coverage before you leave."}
+          </p>
+        </motion.div>
+      )}
+
+      {/* Step 3: next steps */}
+      {step === 3 && (
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+          style={{ background: "#fff", border: `1.5px solid ${C.navy10}`, borderRadius: 14, padding: "16px 18px" }}>
+          <p style={{ fontSize: 12.5, fontWeight: 800, color: C.navy, marginBottom: 14 }}>Useful Resources</p>
+          {[
+            { label: "Healthcare.gov (ACA Marketplace)", sub: "Compare plans for immigrants" },
+            { label: "Cigna Global Health Insurance", sub: "International coverage with US access" },
+            { label: "ISO Student Insurance", sub: "F-1 & J-1 compliant plans" },
+            { label: "Pivot Health STHI", sub: "Short-term bridge plans" },
+          ].map(({ label, sub }) => (
+            <div key={label} style={{ display: "flex", alignItems: "flex-start", gap: 8, padding: "8px 0", borderBottom: `1px solid ${C.navy10}` }}>
+              <ExternalLink size={11} color={C.navy50} strokeWidth={2} style={{ marginTop: 3, flexShrink: 0 }} />
+              <div>
+                <p style={{ fontSize: 12.5, fontWeight: 600, color: C.navy, marginBottom: 2 }}>{label}</p>
+                <p style={{ fontSize: 11, color: C.navy50 }}>{sub}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Stats footer */}
+      <div style={{ background: C.navy, borderRadius: 14, padding: "16px 18px", display: "flex", flexDirection: "column", gap: 12 }}>
+        {[
+          { Icon: Users, val: "1,200+", label: "newcomers protected" },
+          { Icon: Globe, val: "40+", label: "countries served" },
+          { Icon: TrendingUp, val: "$50K+", label: "max exposure prevented per user" },
+        ].map(({ Icon, val, label }) => (
+          <div key={label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <Icon size={14} color={C.coral} strokeWidth={2} />
+            <span style={{ fontSize: 13, fontWeight: 800, color: "#fff", minWidth: 48 }}>{val}</span>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>{label}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
 /* ── Main tool ────────────────────────────────────────────────── */
 export function DashboardTool() {
   const [step, setStep]         = useState<1 | 2 | 3>(1);
   const [visa, setVisa]         = useState<VisaType | null>(null);
   const [benefits, setBenefits] = useState<BenefitsStart | null>(null);
   const [checks, setChecks]     = useState<boolean[]>([]);
+  const [isWide, setIsWide]     = useState(false);
+  const bodyRef                 = useRef<HTMLDivElement>(null);
 
   const result   = visa && benefits ? resultMap[visa][benefits] : null;
   const selBen   = benefitsOpts.find(b => b.id === benefits);
   const rc       = result ? riskCfg[result.risk] : null;
+
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      setIsWide(entry.contentRect.width >= 720);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   function toStep3() {
     if (benefits && result) { setChecks(new Array(result.actions.length).fill(false)); setStep(3); }
@@ -512,9 +675,10 @@ export function DashboardTool() {
     <div style={{ display: "flex", height: "100%", overflow: "hidden", fontFamily: F, background: "#fff" }}>
       <Sidebar visa={visa} step={step} />
 
-      <div style={{ flex: 1, overflowY: "auto", background: "#fff", display: "flex", flexDirection: "column" }}>
+      {/* Main area: wizard + optional info panel */}
+      <div ref={bodyRef} style={{ flex: 1, overflow: "hidden", background: "#fff", display: "flex", flexDirection: "column" }}>
         {/* Top bar */}
-        <div style={{ position: "sticky", top: 0, zIndex: 10, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px", background: "#fff", borderBottom: `1.5px solid ${C.navy10}` }}>
+        <div style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px", background: "#fff", borderBottom: `1.5px solid ${C.navy10}` }}>
           <div>
             <p style={{ fontSize: 15, fontWeight: 800, color: C.navy, lineHeight: 1 }}>Pre-Move Healthcare Planner</p>
             <p style={{ fontSize: 12, color: C.navy50, marginTop: 3 }}>Understand your coverage gap before you land in the US</p>
@@ -527,8 +691,10 @@ export function DashboardTool() {
           )}
         </div>
 
-        {/* Content */}
-        <div style={{ padding: "24px 24px 32px", flex: 1 }}>
+        {/* Two-column body */}
+        <div style={{ flex: 1, overflow: "hidden", display: "flex" }}>
+          {/* Wizard column */}
+          <div style={{ width: isWide ? 420 : "100%", flexShrink: 0, overflowY: "auto", padding: "22px 22px 32px" }}>
           <StepIndicator step={step} />
 
           <AnimatePresence mode="wait">
@@ -762,8 +928,13 @@ export function DashboardTool() {
             )}
 
           </AnimatePresence>
-        </div>
-      </div>
+          </div>{/* end wizard column */}
+
+          {/* Info panel — only when container is wide enough */}
+          {isWide && <InfoPanel step={step} visa={visa} benefits={benefits} />}
+
+        </div>{/* end two-column body */}
+      </div>{/* end bodyRef */}
     </div>
   );
 }

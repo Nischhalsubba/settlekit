@@ -86,12 +86,19 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { scrollToId, scrollToDashboard, containerRef } = usePageScroll();
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const onScroll = () => setScrolled(el.scrollTop > 12);
+    const onScroll = () => {
+      const st = el.scrollTop;
+      const vh = window.innerHeight;
+      setScrolled(st > 12);
+      // Hide navbar while the dashboard occupies full screen (hero scroll zone 0.9–2.85× viewport)
+      setHidden(st > vh * 0.9 && st < vh * 2.85);
+    };
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, [containerRef]);
@@ -104,8 +111,15 @@ function Navbar() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-[100] bg-white transition-all duration-300"
-      style={{ borderBottom: `1px solid ${scrolled ? C.navy10 : "transparent"}`, fontFamily: inter, boxShadow: scrolled ? "0 2px 20px rgba(19,39,58,0.08)" : "none" }}
+      className="fixed top-0 left-0 right-0 z-[100] bg-white"
+      style={{
+        borderBottom: `1px solid ${scrolled ? C.navy10 : "transparent"}`,
+        fontFamily: inter,
+        boxShadow: scrolled ? "0 2px 20px rgba(19,39,58,0.08)" : "none",
+        opacity: hidden ? 0 : 1,
+        pointerEvents: hidden ? "none" : "auto",
+        transition: "opacity 0.35s ease, box-shadow 0.2s ease, border-color 0.2s ease",
+      }}
     >
       <div className="mx-auto flex items-center justify-between px-6" style={{ maxWidth: 1200, height: 68 }}>
         <a href="#" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity" onClick={e => { e.preventDefault(); containerRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}>
@@ -273,7 +287,7 @@ function ScrollDrivenHero() {
           position: "absolute", top: bTop, left: bLeft, right: bRight, bottom: "0%",
           borderRadius: bRadius, overflow: "hidden",
           boxShadow: bShadow, border: bBorder, background: bBg,
-          backdropFilter: "blur(12px)", zIndex: 5,
+          backdropFilter: "blur(12px)", zIndex: 12,
           display: "flex", flexDirection: "column",
         }}>
           {/* Chrome bar */}
