@@ -1,0 +1,40 @@
+# SettleKit
+
+SettleKit is a product prototype for immigrants, international students, and workers preparing to move to the United States and exploring possible healthcare coverage gaps before employer, university, or private insurance begins.
+
+## Primary use cases
+
+- Review a first-90-days healthcare coverage timeline.
+- Explore possible gaps between arrival and insurance start dates.
+- Organize questions for employers, universities, insurers, or licensed advisors.
+- Review risk scenarios and preparation steps before travel.
+- Use an interactive newcomer healthcare planning dashboard.
+
+## Intended audience
+
+- International students moving to the United States.
+- Skilled workers and employees relocating on work visas.
+- Immigrants and newcomers preparing for arrival.
+- Families supporting someone who is relocating.
+
+## Technical summary
+
+- Vite 6
+- React 18
+- TypeScript
+- Tailwind CSS 4
+- Motion animations
+- Responsive scroll-driven landing page
+- Interactive dashboard prototype
+
+## Repository
+
+https://github.com/Nischhalsubba/settlekit
+
+## Important disclaimer
+
+SettleKit is a product and interface prototype. It does not provide medical, legal, financial, tax, immigration, or insurance advice. Coverage rules, eligibility, prices, waiting periods, effective dates, exclusions, and legal requirements must be verified with official government sources, employers, universities, licensed insurers, and qualified professionals.
+
+## Evidence note
+
+Any user counts, savings figures, risk percentages, testimonials, or outcome statistics shown in the prototype should be treated as placeholder product copy unless separately supported by verifiable research or production analytics.
