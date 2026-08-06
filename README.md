@@ -4,6 +4,95 @@
 
 # SettleKit
 
+<!-- interactive-readme-standard:start -->
+
+> [!NOTE]
+> **Branch-specific documentation:** this section is maintained for [`main`](https://github.com/Nischhalsubba/settlekit/tree/main). It is generated from the files present on this branch and preserves the project-authored README below.
+
+<details open>
+<summary><strong>Interactive repository guide</strong></summary>
+
+## Branch overview
+
+| Item | Value |
+|---|---|
+| Repository | [`Nischhalsubba/settlekit`](https://github.com/Nischhalsubba/settlekit) |
+| Branch | [`main`](https://github.com/Nischhalsubba/settlekit/tree/main) |
+| Detected stack | Vite, Tailwind CSS, TypeScript, CSS, HTML, JavaScript |
+| Detected manifests | package.json |
+| Documentation policy | Every maintained branch must explain purpose, setup, structure, architecture, flows, testing, delivery, security, and ownership. |
+
+## Repository structure
+
+```mermaid
+flowchart TD
+    ROOT["settlekit / main"]
+    ROOT --> P0[".github/"]
+    ROOT --> P1["docs/"]
+    ROOT --> P2["guidelines/"]
+    ROOT --> P3["public/"]
+    ROOT --> P4["src/"]
+    ROOT --> P5["AGENTS.md"]
+    ROOT --> P6["ATTRIBUTIONS.md"]
+    ROOT --> P7["default_shadcn_theme.css"]
+    ROOT --> P8["index.html"]
+    ROOT --> P9["package.json"]
+    ROOT --> P10["pnpm-workspace.yaml"]
+    ROOT --> P11["postcss.config.mjs"]
+    ROOT --> P12["vite.config.ts"]
+```
+
+The diagram is generated from the branch's actual top-level files and directories. Use the branch link above for complete source navigation.
+
+## Website or application structure
+
+```mermaid
+flowchart TD
+    APP["settlekit"]
+    APP --> R0["src/app"]
+    APP --> R1["public"]
+    R0 --> F0["src/app/App.tsx"]
+    R0 --> F1["src/app/components/DashboardTool.tsx"]
+    R0 --> F2["src/app/components/LandingPage.tsx"]
+    R0 --> F3["src/app/components/SettleKitHero.tsx"]
+```
+
+## Application and responsibility flow
+
+```mermaid
+flowchart LR
+    ACTOR["User / contributor"]
+    ACTOR --> A0["Interface: public, src"]
+    A0 --> A1["Documentation: docs"]
+    A1 --> A2["Delivery: .github"]
+    A2 --> DELIVERY["Delivery: GitHub Actions"]
+```
+
+## Change-to-delivery flow
+
+```mermaid
+flowchart LR
+    CHANGE["Change on main"]
+    CHECK["Validate: npm run dev, npm run build"]
+    REVIEW["Review documentation and architecture impact"]
+    RELEASE["Merge, release, or deploy according to this branch"]
+    CHANGE --> CHECK --> REVIEW --> RELEASE
+```
+
+## README requirements for this branch
+
+- Explain what this branch contains and how it differs from the default branch.
+- Keep installation, configuration, usage, testing, deployment, security, support, and license information accurate.
+- Document repository, website or application, API, data, authentication, background-job, and deployment flows when they exist.
+- Prefer Mermaid diagrams and expandable `<details>` sections for visual navigation.
+- Link diagrams and modules to real source paths; never invent missing components.
+- Preserve project-specific documentation and update diagrams whenever architecture or major paths change.
+- Treat secrets, private infrastructure, customer data, and credentials as prohibited README content.
+
+</details>
+
+<!-- interactive-readme-standard:end -->
+
 ### A healthcare coverage-gap planning prototype for immigrants, international students, and workers moving to the United States.
 
 <p>
