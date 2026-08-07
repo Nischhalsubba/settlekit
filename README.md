@@ -4,27 +4,27 @@
 
 # settlekit
 
-**Branch-aware technical guide for [`main`](https://github.com/Nischhalsubba/settlekit/tree/main)**
+**Branch-aware technical guide for [`agent/security-vite-6-4-1`](https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1)**
 
-<p><img alt="branch: main" src="https://img.shields.io/static/v1?label=&message=branch%3A%20main&color=5965F2&style=flat-square"> <img alt="Vite" src="https://img.shields.io/static/v1?label=&message=Vite&color=24292F&style=flat-square"> <img alt="Tailwind CSS" src="https://img.shields.io/static/v1?label=&message=Tailwind%20CSS&color=24292F&style=flat-square"> <img alt="TypeScript" src="https://img.shields.io/static/v1?label=&message=TypeScript&color=24292F&style=flat-square"> <img alt="CSS" src="https://img.shields.io/static/v1?label=&message=CSS&color=24292F&style=flat-square"> <img alt="HTML" src="https://img.shields.io/static/v1?label=&message=HTML&color=24292F&style=flat-square"> <img alt="JavaScript" src="https://img.shields.io/static/v1?label=&message=JavaScript&color=24292F&style=flat-square"> <img alt="docs: branch-aware" src="https://img.shields.io/static/v1?label=&message=docs%3A%20branch-aware&color=8250DF&style=flat-square"></p>
+<p><img alt="branch: agent/security-vite-6-4-1" src="https://img.shields.io/static/v1?label=&message=branch%3A%20agent%2Fsecurity-vite-6-4-1&color=5965F2&style=flat-square"> <img alt="Vite" src="https://img.shields.io/static/v1?label=&message=Vite&color=24292F&style=flat-square"> <img alt="Tailwind CSS" src="https://img.shields.io/static/v1?label=&message=Tailwind%20CSS&color=24292F&style=flat-square"> <img alt="TypeScript" src="https://img.shields.io/static/v1?label=&message=TypeScript&color=24292F&style=flat-square"> <img alt="CSS" src="https://img.shields.io/static/v1?label=&message=CSS&color=24292F&style=flat-square"> <img alt="HTML" src="https://img.shields.io/static/v1?label=&message=HTML&color=24292F&style=flat-square"> <img alt="JavaScript" src="https://img.shields.io/static/v1?label=&message=JavaScript&color=24292F&style=flat-square"> <img alt="docs: branch-aware" src="https://img.shields.io/static/v1?label=&message=docs%3A%20branch-aware&color=8250DF&style=flat-square"></p>
 
 <p>
-  <a href="https://github.com/Nischhalsubba/settlekit/tree/main"><strong>Browse source</strong></a> ·
+  <a href="https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1"><strong>Browse source</strong></a> ·
   <a href="https://github.com/Nischhalsubba/settlekit/issues"><strong>Issues</strong></a> ·
-  <a href="https://github.com/Nischhalsubba/settlekit/codespaces/new?ref=main"><strong>Open in Codespaces</strong></a>
+  <a href="https://github.com/Nischhalsubba/settlekit/codespaces/new?ref=agent%2Fsecurity-vite-6-4-1"><strong>Open in Codespaces</strong></a>
 </p>
 
 </div>
 
 > [!IMPORTANT]
-> This guide is generated from the files actually present on `main`. It links to detected source paths, preserves project-authored notes, and avoids claiming components that were not found.
+> This guide is generated from the files actually present on `agent/security-vite-6-4-1`. It links to detected source paths, preserves project-authored notes, and avoids claiming components that were not found.
 
 ## At a glance
 
 | Item | Detected value |
 |---|---|
 | Purpose | A web or interface project documented from the files currently present on this branch. |
-| Branch role | Default branch |
+| Branch role | Compared with `main` |
 | Stack | Vite, Tailwind CSS, TypeScript, CSS, HTML, JavaScript |
 | Manifests | package.json |
 | Prerequisites | Node.js |
@@ -33,7 +33,7 @@
 
 ## Branch scope
 
-This is the repository's default branch.
+No branch-specific file differences were detected against the default branch at generation time.
 
 
 
@@ -55,7 +55,7 @@ npm run build
 
 ```mermaid
 flowchart TD
-    ROOT["settlekit / main"]
+    ROOT["settlekit / agent/security-vite-6-4-1"]
     ROOT --> P0[".github/"]
     ROOT --> P1["docs/"]
     ROOT --> P2["guidelines/"]
@@ -73,9 +73,9 @@ flowchart TD
 
 | Responsibility | Detected source paths |
 |---|---|
-| Interface | [`public`](https://github.com/Nischhalsubba/settlekit/tree/main/public), [`src`](https://github.com/Nischhalsubba/settlekit/tree/main/src) |
-| Documentation | [`docs`](https://github.com/Nischhalsubba/settlekit/tree/main/docs) |
-| Delivery | [`.github`](https://github.com/Nischhalsubba/settlekit/tree/main/.github) |
+| Interface | [`public`](https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1/public), [`src`](https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1/src) |
+| Documentation | [`docs`](https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1/docs) |
+| Delivery | [`.github`](https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1/.github) |
 
 ## Website or application map
 
@@ -151,7 +151,7 @@ Define useful logs, metrics, traces, alerts, and rollback signals for production
 
 ```mermaid
 flowchart LR
-    CHANGE["Change on main"] --> CHECK["Tests and quality checks"]
+    CHANGE["Change on agent/security-vite-6-4-1"] --> CHECK["Tests and quality checks"]
     CHECK --> REVIEW["Review architecture and documentation impact"]
     REVIEW --> BUILD["Build or package"]
     BUILD --> DEPLOY["Deploy or release"]
@@ -160,7 +160,7 @@ flowchart LR
 
 ### Automation detected
 
-- [`.github/workflows/apply-interactive-readme.yml`](https://github.com/Nischhalsubba/settlekit/blob/main/.github/workflows/apply-interactive-readme.yml)
+- [`.github/workflows/apply-interactive-readme.yml`](https://github.com/Nischhalsubba/settlekit/blob/agent/security-vite-6-4-1/.github/workflows/apply-interactive-readme.yml)
 
 ## Contribution flow
 
@@ -185,7 +185,7 @@ flowchart LR
 | Topic | Source |
 |---|---|
 | Repository | [`Nischhalsubba/settlekit`](https://github.com/Nischhalsubba/settlekit) |
-| Branch | [`main`](https://github.com/Nischhalsubba/settlekit/tree/main) |
+| Branch | [`agent/security-vite-6-4-1`](https://github.com/Nischhalsubba/settlekit/tree/agent/security-vite-6-4-1) |
 | Ownership | No CODEOWNERS file detected |
 | Contributing | Use the contribution flow above |
 | Support | [Open or review issues](https://github.com/Nischhalsubba/settlekit/issues) |
