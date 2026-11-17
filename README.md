@@ -51,12 +51,16 @@ flowchart TD
 
 ## Getting started
 
+The Vite/React application is in [`app/`](./app); the repository root does not contain its package manifest. With Node.js and npm installed:
+
 ```bash
 git clone https://github.com/Nischhalsubba/settlekit.git
-cd settlekit
+cd settlekit/app
+npm install
+npm run dev
 ```
 
-Use the repository's manifests and lockfiles to determine the current runtime, package manager, and commands.
+Run `npm run build` from `app/` to create the production bundle. The available scripts are `dev` and `build` (there is no committed test script). See the [application README](./app/README.md) for prototype scope and limitations.
 
 ## Design & accessibility
 
